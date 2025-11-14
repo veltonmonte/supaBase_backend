@@ -47,14 +47,29 @@ app.get('/products', async (req, res) => {
 });
 
 app.get('/products/:id', async (req, res) => {
-    console.log("id = " + req.params.id);
-    const {data, error} = await supabase
+    const productId = req.params.id;
+    console.log("id = " + productId);
+    
+    const { data, error } = await supabase
         .from('products')
         .select()
-        .eq('id', req.params.id)
-    res.send(data);
+        .eq('id', productId);
+    
+    // --- Solução APLICADA AQUI ---
+    if (error) {
+        console.error("Supabase Error:", error);
+        return res.status(500).send({ message: "Database error", error: error.message });
+    }
+    
+    // Log do objeto ANTES de enviar. Use a vírgula para logar o objeto corretamente.
+    console.log("Retorno:", data); // Isso deve mostrar o array de produtos.
 
-    console.log("retorno "+ data);
+    // Se o array estiver vazio, o Supabase retornou vazio.
+    if (!data || data.length === 0) {
+        return res.status(404).send({ message: "Product not found" });
+    }
+
+    res.send(data[0]); // O Supabase retorna um array, mas para um ID específico, você geralmente envia o primeiro elemento.
 });
 
 app.post('/products', async (req, res) => {

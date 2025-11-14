@@ -38,7 +38,7 @@ const supabase =
     supabaseClient.createClient(supaBaseURL, supaBaseKEY)
 
 
-app.get('/products', async (req, res) => {
+app.get('/Produtos', async (req, res) => {
     const {data, error} = await supabase
         .from('products')
         .select()
@@ -46,7 +46,7 @@ app.get('/products', async (req, res) => {
     console.log(`lists all products${data}`);
 });
 
-app.get('/products/:id', async (req, res) => {
+app.get('/Produtos/:id', async (req, res) => {
     const productId = req.params.id;
     console.log("id = " + productId);
     

@@ -108,6 +108,6 @@ app.get('/', (req, res) => {
     res.send("Hello I am working my friend Supabase <3");
 });
 
-app.listen(3000, () => {
-    console.log(`> Ready on http://localhost:3000`);
+app.listen(3000, "0.0.0.0", () => {
+    console.log("> Ready on http://0.0.0.0:3000");
 });

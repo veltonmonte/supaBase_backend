@@ -40,7 +40,7 @@ const supabase =
 
 app.get('/Produtos', async (req, res) => {
     const {data, error} = await supabase
-        .from('products')
+        .from('Produtos')
         .select()
     res.send(data);
     console.log(`lists all products${data}`);
@@ -72,9 +72,9 @@ app.get('/Produtos/:id', async (req, res) => {
     res.send(data[0]); // O Supabase retorna um array, mas para um ID específico, você geralmente envia o primeiro elemento.
 });
 
-app.post('/products', async (req, res) => {
+app.post('/Produtos', async (req, res) => {
     const {error} = await supabase
-        .from('products')
+        .from('Produtos')
         .insert({
             name: req.body.name,
             description: req.body.description,
@@ -90,9 +90,9 @@ app.post('/products', async (req, res) => {
 
 });
 
-app.put('/products/:id', async (req, res) => {
+app.put('/Produtos/:id', async (req, res) => {
     const {error} = await supabase
-        .from('products')
+        .from('Produtos')
         .update({
             name: req.body.name,
             description: req.body.description,
@@ -105,10 +105,10 @@ app.put('/products/:id', async (req, res) => {
     res.send("updated!!");
 });
 
-app.delete('/products/:id', async (req, res) => {
+app.delete('/Produtos/:id', async (req, res) => {
     console.log("delete: " + req.params.id);
     const {error} = await supabase
-        .from('products')
+        .from('Produtos')
         .delete()
         .eq('id', req.params.id)
     if (error) {
@@ -126,3 +126,4 @@ app.get('/', (req, res) => {
 app.listen(3000, "0.0.0.0", () => {
     console.log("> Ready on http://0.0.0.0:3000");
 });
+

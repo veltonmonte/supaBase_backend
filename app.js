@@ -28,7 +28,6 @@ app.use(cors({
 }));
 
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
 
 
 // using morgan for logs
@@ -116,6 +115,7 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log(`> Ready on http://localhost:3000`);
 });
+
 
 
 

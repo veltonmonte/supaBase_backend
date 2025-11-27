@@ -31,6 +31,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+
 const supaBaseURL = "https://rpiqfmrwlfdummtfjdeu.supabase.co";
 const supaBaseKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwaXFmbXJ3bGZkdW1tdGZqZGV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5OTgyMzQsImV4cCI6MjA3ODU3NDIzNH0._iuQBg2K1DxGoB0yAqtiYdnw4z2pFnJTHaOx9cNTCog";
 
@@ -38,43 +39,28 @@ const supabase =
     supabaseClient.createClient(supaBaseURL, supaBaseKEY)
 
 
-app.get('/Produtos', async (req, res) => {
+app.get('/products', async (req, res) => {
     const {data, error} = await supabase
-        .from('Produtos')
+        .from('products')
         .select()
     res.send(data);
     console.log(`lists all products${data}`);
 });
 
-app.get('/Produtos/:id', async (req, res) => {
-    const productId = req.params.id;
-    console.log("id = " + productId);
-    
-    const { data, error } = await supabase
-        .from('Produtos')
+app.get('/products/:id', async (req, res) => {
+    console.log("id = " + req.params.id);
+    const {data, error} = await supabase
+        .from('products')
         .select()
-        .eq('id', productId);
-    
-    // --- Solução APLICADA AQUI ---
-    if (error) {
-        console.error("Supabase Error:", error);
-        return res.status(500).send({ message: "Database error", error: error.message });
-    }
-    
-    // Log do objeto ANTES de enviar. Use a vírgula para logar o objeto corretamente.
-    console.log("Retorno:", data); // Isso deve mostrar o array de produtos.
+        .eq('id', req.params.id)
+    res.send(data);
 
-    // Se o array estiver vazio, o Supabase retornou vazio.
-    if (!data || data.length === 0) {
-        return res.status(404).send({ message: "Product not found" });
-    }
-
-    res.send(data[0]); // O Supabase retorna um array, mas para um ID específico, você geralmente envia o primeiro elemento.
+    console.log("retorno "+ data);
 });
 
-app.post('/Produtos', async (req, res) => {
+app.post('/products', async (req, res) => {
     const {error} = await supabase
-        .from('Produtos')
+        .from('products')
         .insert({
             name: req.body.name,
             description: req.body.description,
@@ -90,9 +76,9 @@ app.post('/Produtos', async (req, res) => {
 
 });
 
-app.put('/Produtos/:id', async (req, res) => {
+app.put('/products/:id', async (req, res) => {
     const {error} = await supabase
-        .from('Produtos')
+        .from('products')
         .update({
             name: req.body.name,
             description: req.body.description,
@@ -105,10 +91,10 @@ app.put('/Produtos/:id', async (req, res) => {
     res.send("updated!!");
 });
 
-app.delete('/Produtos/:id', async (req, res) => {
+app.delete('/products/:id', async (req, res) => {
     console.log("delete: " + req.params.id);
     const {error} = await supabase
-        .from('Produtos')
+        .from('products')
         .delete()
         .eq('id', req.params.id)
     if (error) {
@@ -123,7 +109,8 @@ app.get('/', (req, res) => {
     res.send("Hello I am working my friend Supabase <3");
 });
 
-app.listen(3000, "0.0.0.0", () => {
-    console.log("> Ready on http://0.0.0.0:3000");
+app.listen(3000, () => {
+    console.log(`> Ready on http://localhost:3000`);
 });
+
 

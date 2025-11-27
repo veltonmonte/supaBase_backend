@@ -80,7 +80,6 @@ app.put('/products/:id', async (req, res) => {
         .from('products')
         .update({
             name: req.body.name,
-            description: req.body.description,
             price: req.body.price
         })
         .eq('id', req.params.id)
@@ -111,4 +110,5 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log(`> Ready on http://localhost:3000`);
 });
+
 

@@ -112,8 +112,9 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log(`> Ready on http://localhost:3000`);
+    console.log(`> Ready on http://3.92.92.111:3000`);
 });
+
 
 
 

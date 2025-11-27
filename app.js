@@ -19,8 +19,12 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const cors = require("cors");
+
 app.use(cors({
-  origin: '*'
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
 }));
 
 
@@ -112,6 +116,7 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log(`> Ready on http://localhost:3000`);
 });
+
 
 
 

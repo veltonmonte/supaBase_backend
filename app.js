@@ -20,11 +20,10 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const cors=require("cors");
-const corsOptions ={
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
+app.use(cors({
+  origin: '*'
+}));
+
 
 app.use(cors(corsOptions)) // Use this after the variable declaration
 
@@ -112,8 +111,9 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log(`> Ready on http://3.92.92.111:3000`);
+    console.log(`> Ready on http://localhost:3000`);
 });
+
 
 
 

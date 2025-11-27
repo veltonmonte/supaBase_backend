@@ -31,9 +31,13 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+const supaBaseURL = "https://rpiqfmrwlfdummtfjdeu.supabase.co";
+const supaBaseKEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJwaXFmbXJ3bGZkdW1tdGZqZGV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI5OTgyMzQsImV4cCI6MjA3ODU3NDIzNH0._iuQBg2K1DxGoB0yAqtiYdnw4z2pFnJTHaOx9cNTCog";
+
 const supabase = 
-    supabaseClient.createClient('https://minhaurl', 
-        'minhaAPIKey')
+    supabaseClient.createClient(supaBaseURL, supaBaseKEY)
+
+
 
 
 app.get('/products', async (req, res) => {
@@ -109,3 +113,4 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log(`> Ready on http://localhost:3000`);
 });
+
